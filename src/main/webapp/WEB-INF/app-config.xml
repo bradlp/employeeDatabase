@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:cloud="http://schema.cloudfoundry.org/spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
+		http://schema.cloudfoundry.org/spring http://schema.cloudfoundry.org/spring/cloudfoundry-spring.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<!-- scan for all classes within the package, but IGNORE all annotated with 
+		@Controller (they are configured in dispatcher context) -->
+	<context:component-scan base-package="ie.cit.cloud">
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+	<context:annotation-config />
+	
+	<!-- Here is where we set the datasource for the JDBC database
+		 Switching between 2 types   (1)  inMemory H2
+		 							 (2)  CloudFoubdry Based	 -->
+	<jdbc:embedded-database id="dataSource" type="H2"/> 
+	<!-- <cloud:data-source id="dataSource" /> -->
+	
+	<jdbc:initialize-database data-source="dataSource" ignore-failures="NONE">
+		<jdbc:script location="classpath:createEmployeeDB.sql" />
+	</jdbc:initialize-database>
+</beans>
