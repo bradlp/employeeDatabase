@@ -1,1 +1,2 @@
-create table if not exists Employee (employeeId int, lastname varchar(250), firstname varchar(250), jobTitle varchar(250), department varchar(250),  phoneExtn int, salary int, primary key(employeeId)) 
+create table if not exists Employee (employeeId int, firstname varchar(250),lastname varchar(250), jobTitle varchar(250), department varchar(250),  phoneExtn int, salary int, primary key(employeeId))
+INSERT INTO Employee (employeeId, lastname , firstname, jobTitle, department, phoneExtn, salary) VALUES (0, 'Bradley', 'Paul', 'Manager', 'Engineering', 1879, 10000)

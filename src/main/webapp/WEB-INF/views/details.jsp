@@ -12,8 +12,8 @@
 		</style>
 	</head>
 	<body>
-		<h1>Employee Details</h1>
-		<img src="springsource.png">
+		<h1>Employee Details<img src="cloud.jpg"></h1>
+		
 
 	<table border="1">
 	<tr>
@@ -21,16 +21,32 @@
 		<th>Header 2</th>
 	</tr>
 	<tr>
-		<td>row 1, cell 1</td>
-		<td>row 1, cell 2</td>
+		<td><b>First Name</b></td>
+		<td>employee.firstNam</td>
 	</tr>
 	<tr>
-		<td>row 2, cell 1</td>
-		<td>row 2, cell 2</td>
-	</tr>
-</table>
+		<td><b>Last Name</b></td>
+		<td>employee.lastName</td>
+	</tr>	
+	<tr>
+		<td><b>Job Title</b></td>
+		<td>employee.jobTitl}</td>
+	</tr>	
+	<tr>
+		<td><b>Employee ID</b></td>
+		<td>employee.employeeId</td>
+	</tr>	
+	<tr>
+		<td><b>Department</b></td>
+		<td>employee.department</td>
+	</tr>	
+	<tr>
+		<td><b>Phone Extn</b></td>
+		<td>employee.phoneExtn</td>
+	</tr>tr>
+</table><p>
 	
-	<form action="donedetails.html" method="get">
+	</p><form action="donedetails.html" method="get">
 		<input type="submit" value="Back to Home Page">
 		</form>
 								

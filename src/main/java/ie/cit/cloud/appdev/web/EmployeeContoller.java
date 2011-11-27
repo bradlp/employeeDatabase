@@ -30,11 +30,23 @@ public class EmployeeContoller {
 	return "index";
 	}
 	
-	@RequestMapping(value = { "index2", "" }, method = GET)
+	@RequestMapping(value = { "listAll" }, method = GET)
 	public String getEmployeeList( Model model ) {
 		model.addAttribute("employees", employeeService.getAllEmployees());
-		return "index";
+		return "listalldetails";
 	}
+	
+		// Function Name =  findEmployee()
+		// Handles the option of getting the rescrited details of one employee.
+		//
+		@RequestMapping(value = { "findEmployee", "" }, method = GET)
+		public String findEmployee(	@RequestParam String firstname,
+									@RequestParam String lastname,
+									Model model ) {
+			model.addAttribute("employee", employeeService.getEmployeeByName(firstname, lastname));
+			return "finddetails";
+		}
+	
 	// Function Name = createNewEmployeeDetails
 	// Load Up An Employee Details Input Page
 	@RequestMapping(value = { "index", "" }, method = POST)
@@ -54,11 +66,13 @@ public class EmployeeContoller {
 	public String createNewEmployee(@RequestParam String firstname,
 									@RequestParam String lastname, 
 									@RequestParam String jobtitle,
+									@RequestParam String department, 
+									@RequestParam int salary,
 									Model model) {
-		employeeService.addNewEmployee(firstname, lastname, jobtitle);
+		employeeService.addNewEmployee(firstname, lastname, jobtitle,department,salary);
 		return "details";
 	}
-
+	
 	// Function Name = getEmployeeDetails
 	// Shows All Employees
 	@RequestMapping(value = { "details", "" }, method = GET)

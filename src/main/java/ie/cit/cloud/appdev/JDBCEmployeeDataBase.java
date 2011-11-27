@@ -17,7 +17,6 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
 
 /**
  * 
@@ -32,7 +31,6 @@ public class JDBCEmployeeDataBase implements EmployeeDataBase {
 	 */
 	@Autowired
 	public JDBCEmployeeDataBase(DataSource ds) {
-		// TODO Auto-generated constructor stub
 		jdbcTemplate = new JdbcTemplate(ds);
 	}
 
@@ -46,7 +44,7 @@ public class JDBCEmployeeDataBase implements EmployeeDataBase {
 	public int addEmployee(Employee employee) {
 		jdbcTemplate
 				.update("insert into Employee "
-						+ "(employeeId, lastname, firstname, jobTitle, department,phoneExtn, salary) values(?,?,?,?,?,?,?)",
+						+ "(employeeId, firstname,lastname, jobTitle, department,phoneExtn, salary) values(?,?,?,?,?,?,?)",
 						employee.getEmployeeId(),employee.getLastName(), employee.getFirstName(),
 						employee.getJobTitle(), employee.getDepartment(),
 						employee.getPhoneExtn(), employee.getSalary());
@@ -73,8 +71,8 @@ public class JDBCEmployeeDataBase implements EmployeeDataBase {
 	 */
 	public Employee getEmployeeByName(String fistname, String lastName) {
 		return jdbcTemplate.queryForObject(
-				"select employeeId, lastname, firstname, jobTitle, department,phoneExtn, salary from Employee where firstname=?,lastname=?",
-				new EmployeeRowMapper(), fistname,lastName );
+				"select employeeId, firstname, lastname, jobTitle, department,phoneExtn, salary from Employee where lastname=?",
+				new EmployeeRowMapper(),lastName );
 	}
     
 	/*
@@ -83,7 +81,7 @@ public class JDBCEmployeeDataBase implements EmployeeDataBase {
 	 * @see ie.cit.cloud.appdev.EmployeeDataBase#GetEmployeeById()
 	 */
 	public List<Employee> getAllEmployees() {
-		return jdbcTemplate.query("select employeeId, lastname, firstname, jobTitle, department,phoneExtn, salary from Employee",
+		return jdbcTemplate.query("select employeeId, firstname, lastname, jobTitle, department,phoneExtn, salary from Employee",
 				new EmployeeRowMapper());
 	}
 	
@@ -94,7 +92,7 @@ public class JDBCEmployeeDataBase implements EmployeeDataBase {
 	 */
 	public Employee getEmployeeById(int employeeId) {
 		return jdbcTemplate.queryForObject(
-				"select employeeId, lastname, firstname, jobTitle, department,phoneExtn, salary from Employee where employeeId=?",
+				"select employeeId, firstname, lastname,  jobTitle, department,phoneExtn, salary from Employee where employeeId=?",
 				new EmployeeRowMapper(), employeeId);
 	}
 
@@ -103,8 +101,8 @@ public class JDBCEmployeeDataBase implements EmployeeDataBase {
 	 */
 	public static class EmployeeRowMapper implements RowMapper<Employee> {
 		public Employee mapRow(ResultSet rs, int rowNum) throws SQLException {
-			return new Employee(rs.getInt("employeeId"),rs.getString("lastname"),
-					rs.getString("firstname"), rs.getString("jobTitle"),
+			return new Employee(rs.getInt("employeeId"),rs.getString("firstname"),
+					rs.getString("lastname"), rs.getString("jobTitle"),
 					rs.getString("department"), rs.getInt("phoneExtn"),
 					rs.getInt("salary"));
 

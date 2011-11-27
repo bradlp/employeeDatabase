@@ -6,28 +6,31 @@ package ie.cit.cloud.appdev.model;
  */
 public class Employee {
 
+	private int employeeId;
+	
 	private String firstName;
 	private String lastName;
-
-	private int employeeId;
+	private String jobTitle;
 	private String department;
 
 	private int phoneExtn;
 	private int salary;
-	private String jobTitle;
+
 	
 	
-	public Employee(String firstName, String lastName, String jobTitle, int employeeId) {
+	public Employee(int employeeId,String firstName, String lastName, 
+					String jobTitle, String department,
+					int phoneExtn, int salary)
+	{
+		this.setEmployeeId(employeeId);
 		this.setFirstName(firstName);
 		this.setLastName(lastName);
-		this.setEmployeeId(employeeId);
+		this.setPhoneExtn(phoneExtn);
 		this.setJobTitle(jobTitle);
+		this.setDepartment(department);
+		this.setSalary(salary);
 	}
 
-	public Employee(int int1, String string, String string2, String string3,
-			String string4, int int2, int int3) {
-		// TODO Auto-generated constructor stub
-	}
 
 	public String getDepartment() {
 		return department;

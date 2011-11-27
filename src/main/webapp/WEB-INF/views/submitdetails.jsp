@@ -13,15 +13,17 @@
 	</head>
 	<body>
 		<h1>Employee Details</h1>
-		<img src="springsource.png">
+		<img src="cloud.jpg">
 
 		<form method="post" >
-			Employee Details:<br>
-			First Name: <input type="text" name="firstname"/><br />
-			Last  Name: <input type="text" name="lastname"/><br />
-			Job Title: <input type="text" name="jobtitle"/><br />
+			<b>Employee Details:<br></b>
+			<b>First Name:</b> <input type="text" name="firstname"><br>
+			<b>Last  Name:</b> <input type="text" name="lastname"><br>
+			<b>Job Title:</b><input type="text" name="jobtitle" ><br>
+			<b>Department:</b><input type="text" name="department" ><br>
+			<b>Salary:</b><input type="text" name="salary" ><br>
 			<input type="reset" value="Reset">
-			<input type="submit"value="Submit">
+			<input type="submit" value="Submit">
 		</form>
 	</body>
 </html>
