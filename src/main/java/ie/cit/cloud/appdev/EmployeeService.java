@@ -31,12 +31,13 @@ public class EmployeeService {
 		return repository.getAllEmployees().size();
 	}
 	
-	public void addNewEmployee(String firstname, String lastname, String jobtitle, 
+	public Employee addNewEmployee(String firstname, String lastname, String jobtitle, 
 								String department, int salary) {
 		int nextAvailibleID = this.getNextAvailibleEmployeeId();
 		Employee newEmployee = new Employee(nextAvailibleID, firstname, lastname, jobtitle,
 												department, 001, salary);
 		repository.addEmployee(newEmployee);
+		return newEmployee;
 	}
 	
 

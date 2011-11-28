@@ -22,28 +22,29 @@
 	</tr>
 	<tr>
 		<td><b>First Name</b></td>
-		<td>employee.firstNam</td>
+		<td>${employee.firstName}</td>
 	</tr>
 	<tr>
 		<td><b>Last Name</b></td>
-		<td>employee.lastName</td>
+		<td>${employee.lastName}</td>
 	</tr>	
 	<tr>
 		<td><b>Job Title</b></td>
-		<td>employee.jobTitl}</td>
+		<td>${employee.jobTitle}</td>
 	</tr>	
 	<tr>
 		<td><b>Employee ID</b></td>
-		<td>employee.employeeId</td>
+		<td>${employee.employeeId}</td>
 	</tr>	
 	<tr>
 		<td><b>Department</b></td>
-		<td>employee.department</td>
+		<td>${employee.department}</td>
 	</tr>	
 	<tr>
 		<td><b>Phone Extn</b></td>
-		<td>employee.phoneExtn</td>
-	</tr>tr>
+		<td>${employee.phoneExtn}</td>
+	</tr>
+	<br>
 </table><p>
 	
 	</p><form action="donedetails.html" method="get">

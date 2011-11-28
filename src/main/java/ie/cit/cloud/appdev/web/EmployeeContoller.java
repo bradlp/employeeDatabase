@@ -24,62 +24,56 @@ public class EmployeeContoller {
 	// Function Name =  index()
 	// Handles the Home Page
 	// Show Options to List All Employees,Add New Employees
+	//
 	@RequestMapping(value = { "index", "" }, method = GET)
 	public String index(Model model ) {
 		model.addAttribute("employeeCount", employeeService.getEmployeesCount());
 	return "index";
 	}
 	
+	// Function Name =  getEmployeeList()
+	// Goes to the database and gets a list of all active employees
+	// Pay is rescricted so does not get that
+	//
 	@RequestMapping(value = { "listAll" }, method = GET)
 	public String getEmployeeList( Model model ) {
 		model.addAttribute("employees", employeeService.getAllEmployees());
 		return "listalldetails";
 	}
 	
-		// Function Name =  findEmployee()
-		// Handles the option of getting the rescrited details of one employee.
-		//
-		@RequestMapping(value = { "findEmployee", "" }, method = GET)
-		public String findEmployee(	@RequestParam String firstname,
-									@RequestParam String lastname,
-									Model model ) {
-			model.addAttribute("employee", employeeService.getEmployeeByName(firstname, lastname));
-			return "finddetails";
-		}
-	
-	// Function Name = createNewEmployeeDetails
-	// Load Up An Employee Details Input Page
-	@RequestMapping(value = { "index", "" }, method = POST)
-	public String createNewEmployeeDetails(@RequestParam String firstname,
-										Model model) {
-		return "redirect:submitdetails.html";
+	// Function Name =  findEmployee()
+	// find the details of one individual employee.
+	//
+	@RequestMapping(value = { "findEmployee", "" }, method = GET)
+	public String findEmployee(	@RequestParam String firstname,
+								@RequestParam String lastname,
+								Model model ) {
+		model.addAttribute("employee", employeeService.getEmployeeByName(firstname, lastname));
+		return "finddetails";
 	}
-
-	// Function Name = submitdetails
-	// Add a new user based on firstname, lastname, jobtitle
-	@RequestMapping(value = { "submitdetails", "" }, method = GET)
-	public String submitdetails(Model model) {
+	
+	// Function Name =  createNewEmployeeDetails()
+	// user requests to add new employee so we load the submit details page
+	//
+	@RequestMapping(value = { "addnew", "" }, method = GET)
+	public String createNewEmployeeDetails(Model model) {
 		return "submitdetails";
 	}
-	// Add a new user based on firstname, lastname, jobtitle
-	@RequestMapping(value = { "submitdetails", "" }, method = POST)
+
+	// Function Name =  createNewEmployee()
+	// Create a new Employee and then show the requested Details
+	//
+	@RequestMapping(value = { "newdetails", "" }, method = POST)
 	public String createNewEmployee(@RequestParam String firstname,
 									@RequestParam String lastname, 
 									@RequestParam String jobtitle,
 									@RequestParam String department, 
 									@RequestParam int salary,
 									Model model) {
-		employeeService.addNewEmployee(firstname, lastname, jobtitle,department,salary);
+		model.addAttribute("employee", employeeService.addNewEmployee(firstname, lastname, jobtitle,department,salary));
 		return "details";
 	}
 	
-	// Function Name = getEmployeeDetails
-	// Shows All Employees
-	@RequestMapping(value = { "details", "" }, method = GET)
-	public String getEmployeeDetails(Model model) {
-		model.addAttribute("employees", employeeService.getAllEmployees());
-		return "index";
-	}
    
 	@RequestMapping(value = "donedetails", method = GET)
     public String done( Model model) {

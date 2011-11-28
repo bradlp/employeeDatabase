@@ -49,12 +49,12 @@ body {
 							<b>List all Employees by Department:</b><br>
 							<form action="listAll.html" method="get">
 
-								<INPUT TYPE=RADIO NAME=age VALUE="?" CHECKED>unspecified<BR>
-								<INPUT TYPE=RADIO NAME=age VALUE="0-12">0-12 years<BR>
-								<INPUT TYPE=RADIO NAME=age VALUE="13-17">13-17 years<BR>
-								<INPUT TYPE=RADIO NAME=age VALUE="18-25">18-25 years<BR>
-								<INPUT TYPE=RADIO NAME=age VALUE="26-35">26-35 years<BR>
-								<INPUT TYPE=RADIO NAME=age VALUE="36-">36 or more years<BR>
+								<INPUT TYPE=RADIO NAME=deparment VALUE="?" CHECKED>unspecified<BR>
+								<INPUT TYPE=RADIO NAME=deparment VALUE="Sofware">Software Department<BR>
+								<INPUT TYPE=RADIO NAME=deparment VALUE="Test">Test Department<BR>
+								<INPUT TYPE=RADIO NAME=deparment VALUE="Finace">Finace Department<BR>
+								<INPUT TYPE=RADIO NAME=deparment VALUE="HR">HR Department<BR>
+								<INPUT TYPE=RADIO NAME=deparment VALUE="IT">IT Department<BR>
 							<input type="submit" value="ListByDepartment">
 							</form>
 
@@ -74,7 +74,7 @@ body {
 				<table width="60%" height="60%" align="center">
 					<tr>
 						<td style="background-color: #CCCCCC;" colspan="2">
-							<h2 style="color:red"> Rescrited Access </h2>
+							<h2 style="color:red"> Rescricted Access </h2>
 							Manager Only in this area.
 							Login will be required
 							<form name="input"  method="get">
@@ -82,13 +82,10 @@ body {
 								Password: <input type="text" type="hidden" name="user" /><br>
 								<input type="submit" value="Login" />
 							</form>
-							<form method="post">
-									Employee Details:<br> New Employee Page: <input
-										type="text" name="firstname" /><br /> 
-										<input type="reset"	value="Reset" /> <input type="submit" value="Submit" />
+							<form action="addnew.html" method="get">
+									Employee Details:<br> New Employee Page: 
+									<input type="submit" value="Add New Employee" />
 							</form>
-												
-							
 						</td>
 					</tr>
 				</table></td>

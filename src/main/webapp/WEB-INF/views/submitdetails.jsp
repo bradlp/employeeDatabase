@@ -15,7 +15,7 @@
 		<h1>Employee Details</h1>
 		<img src="cloud.jpg">
 
-		<form method="post" >
+		<form action="newdetails.html" method="post" >
 			<b>Employee Details:<br></b>
 			<b>First Name:</b> <input type="text" name="firstname"><br>
 			<b>Last  Name:</b> <input type="text" name="lastname"><br>
