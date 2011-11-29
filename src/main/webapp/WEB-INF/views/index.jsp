@@ -33,12 +33,12 @@ body {
 		</tr>
 		
 		<tr>
-			<td style="background-color: #00FFFF;" width="50%">
+			<td style="background-color: #FFFFFF;" width="50%">
 				<table>
 					<tr>
 						<td style="background-color: #FFFFFF;" colspan="2">
 
-							<h2>Employee Database Lookup.</h2>
+							<h3>Employee Database Lookup.</h3>
 							<b>Current Company Employee Count </b>(total: ${employeeCount})<br>
 							<hr>
 							<b>List all Employees:</b><br> 
@@ -69,7 +69,7 @@ body {
 					</tr>
 				</table>
 			</td>
-			<td style="background-color: 00FFFF;" width="50%">
+			<td style="background-color: #FFFFFF;" width="50%">
 
 				<table width="60%" height="60%" align="center">
 					<tr>

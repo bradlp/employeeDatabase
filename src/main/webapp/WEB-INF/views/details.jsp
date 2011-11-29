@@ -17,8 +17,8 @@
 
 	<table border="1">
 	<tr>
-		<th>Header 1</th>
-		<th>Header 2</th>
+		<th>Attribute</th>
+		<th>Employee Detail</th>
 	</tr>
 	<tr>
 		<td><b>First Name</b></td>

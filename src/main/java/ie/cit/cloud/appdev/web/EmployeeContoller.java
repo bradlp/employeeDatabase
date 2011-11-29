@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 public class EmployeeContoller {
+	
 	@Autowired
 	private EmployeeService employeeService;
 
@@ -77,6 +78,11 @@ public class EmployeeContoller {
    
 	@RequestMapping(value = "secure/donedetails", method = GET)
     public String done( Model model) {
+	return "redirect:/index.html";
+    }
+	
+	@RequestMapping(value = "donedetails", method = GET)
+    public String donedetails( Model model) {
 	return "redirect:/index.html";
     }
 }

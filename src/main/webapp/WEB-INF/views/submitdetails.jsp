@@ -13,17 +13,39 @@
 	</head>
 	<body>
 		<h1>Employee Details</h1>
-		<img src="cloud.jpg">
+		<img src="../cloud.jpg">
 
 		<form action="newdetails.html" method="post" >
+					
 			<b>Employee Details:<br></b>
-			<b>First Name:</b> <input type="text" name="firstname"><br>
-			<b>Last  Name:</b> <input type="text" name="lastname"><br>
-			<b>Job Title:</b><input type="text" name="jobtitle" ><br>
-			<b>Department:</b><input type="text" name="department" ><br>
-			<b>Salary:</b><input type="text" name="salary" ><br>
+			<table border="0">
+				<tr>
+					<td><b>First Name</b></td>
+					<td> <input type="text" name="firstname"></td>
+				</tr>
+				<tr>
+					<td><b>Last  Name:</b></td>
+					<td><input type="text" name="lastname"><br></td>		
+				</tr>
+				<tr>
+					<td><b>Job Title:</b></td>
+					<td><input type="text" name="jobtitle" ><br></td>
+				</tr>
+				<tr>
+					<td><b>Department:</b></td>
+					<td><input type="text" name="department" ><br></td>
+				</tr>
+				<tr>
+					<td><b>Salary:</b></td>
+					<td><input type="text" name="salary" ><br></td>
+				</tr>
+				</table>
+			
 			<input type="reset" value="Reset">
 			<input type="submit" value="Submit">
+			
+			
+				
 		</form>
 	</body>
 </html>
