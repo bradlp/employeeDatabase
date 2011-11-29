@@ -50,7 +50,5 @@
 	</p><form action="donedetails.html" method="get">
 		<input type="submit" value="Back to Home Page">
 		</form>
-								
-	
 	</body>
 </html>

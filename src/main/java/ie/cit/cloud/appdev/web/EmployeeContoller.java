@@ -55,7 +55,7 @@ public class EmployeeContoller {
 	// Function Name =  createNewEmployeeDetails()
 	// user requests to add new employee so we load the submit details page
 	//
-	@RequestMapping(value = { "addnew", "" }, method = GET)
+	@RequestMapping(value = { "secure/addnew", "" }, method = GET)
 	public String createNewEmployeeDetails(Model model) {
 		return "submitdetails";
 	}
@@ -63,7 +63,7 @@ public class EmployeeContoller {
 	// Function Name =  createNewEmployee()
 	// Create a new Employee and then show the requested Details
 	//
-	@RequestMapping(value = { "newdetails", "" }, method = POST)
+	@RequestMapping(value = { "secure/newdetails.html", "" }, method = POST)
 	public String createNewEmployee(@RequestParam String firstname,
 									@RequestParam String lastname, 
 									@RequestParam String jobtitle,
@@ -75,8 +75,8 @@ public class EmployeeContoller {
 	}
 	
    
-	@RequestMapping(value = "donedetails", method = GET)
+	@RequestMapping(value = "secure/donedetails", method = GET)
     public String done( Model model) {
-	return "redirect:index.html";
+	return "redirect:/index.html";
     }
 }

@@ -30,8 +30,9 @@
 		<jdbc:script location="classpath:createEmployeeDB.sql" />
 	</jdbc:initialize-database>
 	
-		<security:http auto-config="true">
-		<security:intercept-url pattern="/*" access="ROLE_USER" />
+	<security:http auto-config="true">
+		<security:intercept-url pattern="/secure/**" access="ROLE_ADMIN"/>
+      	<security:intercept-url pattern="/*" access="ROLE_USER,ROLE_ADMIN" />
 	</security:http>
 
 	<security:authentication-manager>

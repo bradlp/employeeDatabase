@@ -82,7 +82,7 @@ body {
 								Password: <input type="text" type="hidden" name="user" /><br>
 								<input type="submit" value="Login" />
 							</form>
-							<form action="addnew.html" method="get">
+							<form action="secure/addnew.html" method="get">
 									Employee Details:<br> New Employee Page: 
 									<input type="submit" value="Add New Employee" />
 							</form>

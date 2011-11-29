@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 /**
  * EmployeeContoller
@@ -37,6 +38,7 @@ public class EmployeeService {
 		Employee newEmployee = new Employee(nextAvailibleID, firstname, lastname, jobtitle,
 												department, 001, salary);
 		repository.addEmployee(newEmployee);
+		//SecurityContextHolder.getContext().getAuthentication().
 		return newEmployee;
 	}
 	
