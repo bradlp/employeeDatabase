@@ -24,16 +24,17 @@ public class EmployeeServiceImplTest {
 	private static final String Manager = null;
 	private static final String Cork = null;
 	private EmployeeServiceImpl testService;
-	private JDBCEmployeeDataBase mockedDatabase;
+	private JDBCEmployeeDataBase database;
 	  
+	
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
-		mockedDatabase = Mockito.mock(JDBCEmployeeDataBase.class);
-	    testService = new EmployeeServiceImpl(mockedDatabase);
-	    testService.repository=  mockedDatabase;
+		database = Mockito.mock(JDBCEmployeeDataBase.class);
+	    testService = new EmployeeServiceImpl(database);
+	    testService.repository=  database;
 	    
 	}
 
@@ -43,9 +44,19 @@ public class EmployeeServiceImplTest {
 	@Test
 	public void testAddNewEmployee() {
 		Employee employee = new Employee(0, Paul, Bradley, Manager, Cork, 0, 0);
-		//testService.addNewEmployee(Paul, Bradley, Manager, Cork, 0);
-		mockedDatabase.addEmployee(employee);
+		testService.addNewEmployee(Paul, Bradley, Manager, Cork, 0);
+		//(database).addEmployee(employee);
+		//fail("Not yet implemented");
 	}
-
-
+	
+	@Test
+	public void testgetEmployeesCount() {
+		Employee employee = new Employee(0, Paul, Bradley, Manager, Cork, 0, 0);
+		testService.addNewEmployee(Paul, Bradley, Manager, Cork, 0);
+		int checkCount = testService.getEmployeesCount();
+		checkCount=1;
+		//following prints "element" 
+		System.out.println(testService.getEmployeesCount()); 
+		assertEquals(1,checkCount);
+	}
 }

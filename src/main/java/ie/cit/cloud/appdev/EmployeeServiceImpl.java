@@ -51,8 +51,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 	
 	private int getNextAvailibleEmployeeId() {
-		// TODO Auto-generated method stub
-		return 0;
+		return(this.getEmployeesCount()+1);
 	}
 
 	/* (non-Javadoc)
