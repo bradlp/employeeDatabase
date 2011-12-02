@@ -21,13 +21,15 @@
 
 public class EmployeeServiceImplTest {
 	
-	private static final String Paul = null;
-	private static final String Bradley = null;
-	private static final String Manager = null;
-	private static final String Cork = null;
+	private static final String PAUL = "Paul";
+	private static final String BRADLEY = "Bradley";
+	private static final String MANAGER = "Manager";
+	private static final String CORK = "Cork";
 	private EmployeeServiceImpl testService;
 	private JDBCEmployeeDataBase database;
 
+	private EmployeeService testEmployeeService;
+	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 	}
@@ -40,7 +42,7 @@ public class EmployeeServiceImplTest {
 	public void setUp() throws Exception {
 		database = Mockito.mock(JDBCEmployeeDataBase.class);
 	    testService = new EmployeeServiceImpl(database);
-	    //testService.repository= database;
+		testEmployeeService = new EmployeeServiceImpl(database);
 	}
 
 	@After
@@ -49,34 +51,46 @@ public class EmployeeServiceImplTest {
 
 	@Test
 	public void testEmployeeServiceImpl() {
-		fail("Not yet implemented");
+		EmployeeServiceImpl testEmployeeService = new EmployeeServiceImpl(database);
+		assertNotNull(testEmployeeService);
 	}
 
 	@Test
 	public void testGetAllEmployees() {
-		List<Employee> employees = testService.getAllEmployees();
+		List<Employee> employees = testEmployeeService.getAllEmployees();
 		assertNotNull(employees);
 		assertTrue(employees.isEmpty());
 	}
 
 	@Test
 	public void testGetEmployeesCount() {
-		fail("Not yet implemented");
+		List<Employee> employees = testEmployeeService.getAllEmployees();
+		assertNotNull(employees);
+		int testCount = testService.getEmployeesCount();
+		assertNotNull(testCount);
 	}
 
 	@Test
 	public void testAddNewEmployee() {
-		fail("Not yet implemented");
+		EmployeeServiceImpl testEmployeeService = new EmployeeServiceImpl(database);
+		assertNotNull(testEmployeeService);
+		
+		Employee employee = new Employee(0, "Paul", "Bradley", "Manager", "Engineering",189,1);	
+		//testEmployeeService.addNewEmployee(PAUL, Bradley, Manager, Cork, 0);
+		Mockito.verify(database).addEmployee(employee);
+
 	}
 
 	@Test
 	public void testGetEmployeeByName() {
-		fail("Not yet implemented");
+		Employee employee  = testEmployeeService.getEmployeeByName(PAUL, BRADLEY);
+		assertNull(employee);
 	}
-
+	
 	@Test
 	public void testGetEmployeeByID() {
-		fail("Not yet implemented");
+		Employee employee  = testEmployeeService.getEmployeeByID(0);
+		assertNull(employee);	
 	}
 
 }
