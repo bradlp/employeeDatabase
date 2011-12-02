@@ -1,7 +1,7 @@
 /**
  * 
  */
-package ie.cit.cloud.appdev;
+package ie.cit.cloud.appdev.data;
 
 
 import ie.cit.cloud.appdev.model.Employee;

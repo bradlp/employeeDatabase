@@ -39,9 +39,12 @@ body {
 						<td style="background-color: #FFFFFF;" colspan="2">
 
 							<h3>Employee Database Lookup.</h3>
+							Welcome to the Online DataBase<br> 
+							Plaese logout when done. <a href="j_spring_security_logout">Logout <security:authentication property="principal.username"/></a> </br>
+		    				
 							<b>Current Company Employee Count </b>(total: ${employeeCount})<br>
 							<hr>
-							<b>List all Employees:</b><br> 
+		    				<b>List all Employees:</b><br> 
 							<form action="listAll.html" method="get">
 									<input type="submit" value="List All" />
 									<input type="submit" value="List By department" />

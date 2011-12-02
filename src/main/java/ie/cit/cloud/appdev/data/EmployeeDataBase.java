@@ -1,4 +1,4 @@
-package ie.cit.cloud.appdev;
+package ie.cit.cloud.appdev.data;
 
 import java.util.Collection;
 
