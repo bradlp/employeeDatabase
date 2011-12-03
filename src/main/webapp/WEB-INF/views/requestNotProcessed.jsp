@@ -43,6 +43,10 @@
       		<td>This Employee already exists.</td>
       		<td>Check with HR Director, another manager may have already entered this employee.</td>
       	</c:when>
+      	<c:when test="${errorcode=='5'}">
+      		<td>You have submitted invalid data.</td>
+      		<td>You may have left one of the required fields back, resubmit and check all details.</td>
+      	</c:when>
       	<c:otherwise>
       		<td>Error processing your request.</td>
       		<td>Please contact the website administrator, ask HR for details.</td>

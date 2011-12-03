@@ -11,7 +11,11 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.sql.DataSource;
+
+import org.apache.log4j.Logger;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -25,6 +29,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 @Repository
 public class JDBCEmployeeDataBase implements EmployeeDataBase {
 	JdbcTemplate jdbcTemplate;
+	private static final Logger logger = Logger.getLogger(JDBCEmployeeDataBase.class);
 
 	/**
 	 * 
@@ -62,47 +67,74 @@ public class JDBCEmployeeDataBase implements EmployeeDataBase {
 		return 0;
 	}
 
-	/*
-	 * getEmployeeByName
-	 * 
-	 * @see
-	 * ie.cit.cloud.appdev.EmployeeDataBase#GetEmployeeByName(java.lang.String,
-	 * java.lang.String)
-	 */
+	// Function Name =  getAllEmployees()
+	// Look up for a employee based on entire company, catch exception in case its empty
+	// Caller will check for null returns
+	//
 	public Employee getEmployeeByName(String fistname, String lastName) {
-		return jdbcTemplate.queryForObject(
-				"select employeeId, firstname, lastname, jobTitle, department,phoneExtn, salary from Employee where lastname=?",
-				new EmployeeRowMapper(),lastName );
+		Employee employee;
+		try {
+			employee = jdbcTemplate.queryForObject(
+					"select employeeId, firstname, lastname, jobTitle, department,phoneExtn, salary from Employee where lastname=?",
+					new EmployeeRowMapper(),lastName );
+		}
+		catch (DataAccessException ex) {
+			logger.error("No data returned for query on Employee Name.");
+			employee=null;
+		}
+		return employee;
 	}
     
-	/*
-	 * getAllEmployees
-	 * 
-	 * @see ie.cit.cloud.appdev.EmployeeDataBase#GetEmployeeById()
-	 */
+	// Function Name =  getAllEmployees()
+	// Look up for a employee based on entire company, catch exception in case its empty
+	// Caller will check for null returns
+	//
 	public List<Employee> getAllEmployees() {
-		return jdbcTemplate.query("select employeeId, firstname, lastname, jobTitle, department,phoneExtn, salary from Employee",
-				new EmployeeRowMapper());
+		List<Employee> employees;
+		try {
+			employees = jdbcTemplate.query("select employeeId, firstname, lastname, jobTitle, department,phoneExtn, salary from Employee",
+					new EmployeeRowMapper());
+		}
+		catch (DataAccessException ex) {
+			logger.error("No data returned for query on all employees.");
+			employees=null;
+		}
+		return employees;
 	}
 
-	/*
-	 * getAllEmployees
-	 * 
-	 * @see ie.cit.cloud.appdev.EmployeeDataBase#GetEmployeeById()
-	 */
+	// Function Name =  getAllEmployeesByDepartment()
+	// Look up for a employee based on Dept, catch exception in case its empty
+	// Caller will check for null returns
+	//
 	public List<Employee> getAllEmployeesByDepartment(String department) {
-		return jdbcTemplate.query("select employeeId, firstname, lastname, jobTitle, department,phoneExtn, salary from Employee where department=?",
-				new EmployeeRowMapper(),department);
+		List<Employee> employees;
+		try {
+			employees = jdbcTemplate.query("select employeeId, firstname, lastname, jobTitle, department,phoneExtn, salary from Employee where department=?",
+					new EmployeeRowMapper(),department);
+		}
+		catch (DataAccessException ex) {
+			logger.error("No data returned for query on dept.");
+			employees=null;
+		}
+		return employees;
 	}
-	/*
-	 * getEmployeeById
-	 * 
-	 * @see ie.cit.cloud.appdev.EmployeeDataBase#GetEmployeeById()
-	 */
+	
+	// Function Name =  getEmployeeById()
+	// Look up for a employee based on ID, catch exception in case its empty
+	// Caller will check for null returns
+	//
 	public Employee getEmployeeById(int employeeId) {
-		return jdbcTemplate.queryForObject(
-				"select employeeId, firstname, lastname,  jobTitle, department,phoneExtn, salary from Employee where employeeId=?",
-				new EmployeeRowMapper(), employeeId);
+		Employee employee;
+		try {
+			employee = jdbcTemplate.queryForObject(
+					"select employeeId, firstname, lastname,  jobTitle, department,phoneExtn, salary from Employee where employeeId=?",
+					new EmployeeRowMapper(), employeeId);
+		}
+		catch (DataAccessException ex) {
+			logger.error("No data returned for query on ID.");
+			employee=null;
+		}
+		return employee;
 	}
 
 	/**
@@ -110,7 +142,7 @@ public class JDBCEmployeeDataBase implements EmployeeDataBase {
 	 */
 	public static class EmployeeRowMapper implements RowMapper<Employee> {
 		public Employee mapRow(ResultSet rs, int rowNum) throws SQLException {
-			return new Employee(rs.getInt("employeeId"),rs.getString("firstname"),
+				return new Employee(rs.getInt("employeeId"),rs.getString("firstname"),
 					rs.getString("lastname"), rs.getString("jobTitle"),
 					rs.getString("department"), rs.getInt("phoneExtn"),
 					rs.getInt("salary"));

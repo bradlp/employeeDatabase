@@ -67,7 +67,7 @@ body {
 							<input type="submit" value="List By Department">
 							</form>
 
-							<form action="findEmployeebyName.html" method="get">
+							<form action="findEmployeeByName.html" method="get">
 									<b>Find Employee Details by Name:</b><br> 
 									First Name: <input type="text" name="firstname" /><br>
 									Last  Name: <input type="text" name="lastname" /><br>
@@ -108,13 +108,6 @@ body {
 
 </html>
 
-<!--<table>
-	<c:forEach var="employee" items="${employees}"
-		varStatus="index">
-		<tr>
-			<td>${employee.firstName}</td>
-			<td>${employee.lastName}</td>
-		</tr>
-	</c:forEach>
-</table>  -->
+
+
 

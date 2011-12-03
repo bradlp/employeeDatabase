@@ -7,7 +7,8 @@ import java.util.List;
 
 import ie.cit.cloud.appdev.EmployeeService;
 import ie.cit.cloud.appdev.model.Employee;
-import ie.cit.cloud.appdev.data.ErrorCodesMessages;
+import ie.cit.cloud.appdev.data.error.ErrorCodesMessages;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,17 +45,23 @@ public class EmployeeContoller {
 	@RequestMapping(value = { "listByDepartment" }, method = GET)
 	public String getEmployeeListByDepartment( @RequestParam String department,
 												Model model ) {
+		String returnView;
+		if (department == null){
+			model.addAttribute("errorcode",errorCodes.INVALID_DATA_SUBMITTED);
+			returnView = "requestNotProcessed";
+		}
 		List<Employee> employeesByDept = employeeService.getEmployeeByDept(department); 
 		
 		if ( employeesByDept != null ){
 			model.addAttribute("employees", employeesByDept);
 			model.addAttribute("department", department);
-			return "listalldetails";
+			returnView = "listalldetails";
 		}
 		else{
 			model.addAttribute("errorcode",errorCodes.NO_EMPLOYEES_FOUND);
-			return "requestNotProcessed";
+			returnView = "requestNotProcessed";
 		}
+		return returnView;
 	}
 	
 	// Function Name =  getEmployeeList()
@@ -82,6 +89,11 @@ public class EmployeeContoller {
 	public String findEmployeeByName(	@RequestParam String firstname,
 								@RequestParam String lastname,
 								Model model ) {
+		
+		if (firstname ==null || lastname ==null){
+			model.addAttribute("errorcode",errorCodes.INVALID_DATA_SUBMITTED);
+			return "requestNotProcessed";
+		}	
 		Employee employee = employeeService.getEmployeeByName(firstname, lastname);
 		
 		if ( employee != null ){
@@ -100,6 +112,10 @@ public class EmployeeContoller {
 	@RequestMapping(value = { "findEmployeeByID", "" }, method = GET)
 	public String findEmployeeByID(	@RequestParam int  employeeID,
 								Model model ) {
+		if (employeeID < 0  ){
+			model.addAttribute("errorcode",errorCodes.INVALID_DATA_SUBMITTED);
+			return "requestNotProcessed";
+		}
 		Employee employee = employeeService.getEmployeeByID(employeeID);
 		
 		if ( employee != null ){
