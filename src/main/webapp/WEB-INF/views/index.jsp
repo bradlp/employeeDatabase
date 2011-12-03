@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 
 <head>
 <title>Employee Database </title>
@@ -27,6 +28,7 @@ body {
 					<tr>
 						<td><h2>The Cloud Company Ltd.</h2> </td>
 						<td><img src="cloud.jpg" alt="The Cloud Company Ltd."></td>
+					
 					</tr>
 				</table>
 			</td>
@@ -39,36 +41,44 @@ body {
 						<td style="background-color: #FFFFFF;" colspan="2">
 
 							<h3>Employee Database Lookup.</h3>
-							Welcome to the Online DataBase<br> 
-							Plaese logout when done. <a href="j_spring_security_logout">Logout <security:authentication property="principal.username"/></a> </br>
-		    				
-							<b>Current Company Employee Count </b>(total: ${employeeCount})<br>
+							
+							Welcome <font color="blue" > <b><security:authentication property="principal.username"/> </b> </font> to the Online Employee DataBase<br>
+							You can lookup and find all you Co-Workers quickly and easily.<br> 
+							Please logout when done. <font color="blue" > <a href="j_spring_security_logout"> Logout <security:authentication property="principal.username"/></a> </font>
+		    				<br>
+		    				<hr>
+							<b>Current Company Employee Count </b> (total: ${employeeCount})<br>
 							<hr>
-		    				<b>List all Employees:</b><br> 
+		    				<b>List all Employees : </b><br> 
 							<form action="listAll.html" method="get">
 									<input type="submit" value="List All" />
-									<input type="submit" value="List By department" />
 							</form> 
+							<hr>
 							<b>List all Employees by Department:</b><br>
-							<form action="listAll.html" method="get">
+							<form action="listByDepartment.html" method="get">
 
-								<INPUT TYPE=RADIO NAME=deparment VALUE="?" CHECKED>unspecified<BR>
-								<INPUT TYPE=RADIO NAME=deparment VALUE="Sofware">Software Department<BR>
-								<INPUT TYPE=RADIO NAME=deparment VALUE="Test">Test Department<BR>
-								<INPUT TYPE=RADIO NAME=deparment VALUE="Finace">Finace Department<BR>
-								<INPUT TYPE=RADIO NAME=deparment VALUE="HR">HR Department<BR>
-								<INPUT TYPE=RADIO NAME=deparment VALUE="IT">IT Department<BR>
-							<input type="submit" value="ListByDepartment">
+								<INPUT TYPE=RADIO NAME=department VALUE="ALL" CHECKED>ALL<BR>
+								<INPUT TYPE=RADIO NAME=department VALUE="Engineering">Engineering Department<BR>
+								<INPUT TYPE=RADIO NAME=department VALUE="Sofware">Software Department<BR>
+								<INPUT TYPE=RADIO NAME=department VALUE="Test">Test Department<BR>
+								<INPUT TYPE=RADIO NAME=department VALUE="Finance">Finance Department<BR>
+								<INPUT TYPE=RADIO NAME=department VALUE="HR">HR Department<BR>
+								<INPUT TYPE=RADIO NAME=department VALUE="IT">IT Department<BR>
+							<input type="submit" value="List By Department">
 							</form>
 
-							<form action="findEmployee.html" method="get">
-									<b>Find Employee Details:</b><br> 
+							<form action="findEmployeebyName.html" method="get">
+									<b>Find Employee Details by Name:</b><br> 
 									First Name: <input type="text" name="firstname" /><br>
 									Last  Name: <input type="text" name="lastname" /><br>
-									<input type="submit" value="Find">
-								</form>
-								
-						</td>
+									<input type="submit" value="FindBy Name">
+							</form>
+							<form action="findEmployeeByID.html" method="get">
+									<b>Find Employee Details by Employee ID:</b><br> 
+									Employee ID: <input type=int name="employeeID" /><br>
+									<input type="submit" value="Find By ID">
+							</form>
+							</td>
 					</tr>
 				</table>
 			</td>

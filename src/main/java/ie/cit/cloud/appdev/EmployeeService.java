@@ -14,6 +14,8 @@ public interface EmployeeService {
 			String jobtitle, String department, int salary);
 
 	public abstract Employee getEmployeeByName(String firstname, String lastname);
+	
+	public abstract List<Employee> getEmployeeByDept(String departmentName);
 
 	public abstract Employee getEmployeeByID(int employeeID);
 

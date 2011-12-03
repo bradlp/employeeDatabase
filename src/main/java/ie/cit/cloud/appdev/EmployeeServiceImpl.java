@@ -24,29 +24,30 @@ public class EmployeeServiceImpl implements EmployeeService {
 	JDBCEmployeeDataBase repository;
 	TeleCommsDeptment telecommsDept;
 	
+	// Function Name =  EmployeeServiceImpl()
+	//
 	@Autowired
 	public EmployeeServiceImpl(EmployeeDataBase employeDataBase) {
 		this.repository = (JDBCEmployeeDataBase) employeDataBase;
 		telecommsDept = new TeleCommsDeptment();
 	}
 
-	/* (non-Javadoc)
-	 * @see ie.cit.cloud.appdev.EmployeeService#getAllEmployees()
-	 */
+	// Function Name =  getAllEmployees()
+	//
+	@Transactional(readOnly = true)
 	public List<Employee> getAllEmployees() {
 		return ( this.repository.getAllEmployees());
 	}
 	
-	/* (non-Javadoc)
-	 * @see ie.cit.cloud.appdev.EmployeeService#getEmployeesCount()
-	 */
+	// Function Name =  getEmployeesCount()
+	//
+	@Transactional(readOnly = true)
 	public int getEmployeesCount() {
 		return repository.getAllEmployees().size();
 	}
 	
-	/* (non-Javadoc)
-	 * @see ie.cit.cloud.appdev.EmployeeService#addNewEmployee(java.lang.String, java.lang.String, java.lang.String, java.lang.String, int)
-	 */
+	// Function Name =  addNewEmployee()
+	//
 	public Employee addNewEmployee(String firstname, String lastname, String jobtitle, 
 								String department, int salary) {
 		int nextAvailibleID = this.getNextAvailibleEmployeeId();
@@ -58,21 +59,31 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return newEmployee;
 	}
 	
+	// Function Name =  getNextAvailibleEmployeeId()
+	//
 	private int getNextAvailibleEmployeeId() {
 		return(this.getEmployeesCount()+1);
 	}
 
-	/* (non-Javadoc)
-	 * @see ie.cit.cloud.appdev.EmployeeService#getEmployeeByName(java.lang.String, java.lang.String)
-	 */
+	// Function Name =  getEmployeeByName()
+	//
+	@Transactional(readOnly = true)
 	public Employee getEmployeeByName(String firstname, String lastname) {
 		Employee employee = this.repository.getEmployeeByName(firstname, lastname); 
 		return (employee);
 	}
-	/* (non-Javadoc)
-	 * @see ie.cit.cloud.appdev.EmployeeService#getEmployeeByID(int)
-	 */
+
+	// Function Name =  getEmployeeByID()
+	//
+	@Transactional(readOnly = true)
 	public Employee getEmployeeByID(int employeeID) {
 		return ( this.repository.getEmployeeById(employeeID));
+	}
+
+	// Function Name =  getEmployeeByDept()
+	//
+	@Transactional(readOnly = true)
+	public List<Employee> getEmployeeByDept(String departmentName) {
+		return ( this.repository.getAllEmployeesByDepartment(departmentName));
 	}
 }

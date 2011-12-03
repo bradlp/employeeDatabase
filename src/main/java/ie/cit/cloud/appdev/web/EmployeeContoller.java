@@ -2,14 +2,18 @@ package ie.cit.cloud.appdev.web;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
+
+import java.util.List;
+
 import ie.cit.cloud.appdev.EmployeeService;
 import ie.cit.cloud.appdev.model.Employee;
-
+import ie.cit.cloud.appdev.data.ErrorCodesMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 
 /**
  * EmployeeContoller
@@ -21,6 +25,7 @@ public class EmployeeContoller {
 	
 	@Autowired
 	private EmployeeService employeeService;
+	private ErrorCodesMessages errorCodes;
 
 	// Function Name =  index()
 	// Handles the Home Page
@@ -29,30 +34,83 @@ public class EmployeeContoller {
 	@RequestMapping(value = { "index", "" }, method = GET)
 	public String index(Model model ) {
 		model.addAttribute("employeeCount", employeeService.getEmployeesCount());
-	return "index";
+		return "index";
+	}
+	
+	// Function Name =  getEmployeeListByDepartment()
+	// Goes to the database and gets a list of all active employees for that department
+	// Pay is restricted so does not get that, that via HR link
+	//
+	@RequestMapping(value = { "listByDepartment" }, method = GET)
+	public String getEmployeeListByDepartment( @RequestParam String department,
+												Model model ) {
+		List<Employee> employeesByDept = employeeService.getEmployeeByDept(department); 
+		
+		if ( employeesByDept != null ){
+			model.addAttribute("employees", employeesByDept);
+			model.addAttribute("department", department);
+			return "listalldetails";
+		}
+		else{
+			model.addAttribute("errorcode",errorCodes.NO_EMPLOYEES_FOUND);
+			return "requestNotProcessed";
+		}
 	}
 	
 	// Function Name =  getEmployeeList()
-	// Goes to the database and gets a list of all active employees
-	// Pay is rescricted so does not get that
+	// Goes to the database and gets a list of all active employees for that department
+	// Pay is restricted so does not get that
 	//
 	@RequestMapping(value = { "listAll" }, method = GET)
 	public String getEmployeeList( Model model ) {
-		model.addAttribute("employees", employeeService.getAllEmployees());
-		return "listalldetails";
+		int numEmployeeCount = employeeService.getEmployeesCount(); 
+		if ( numEmployeeCount > 0 ){
+			model.addAttribute("employees", employeeService.getAllEmployees());
+			model.addAttribute("department", "ALL");
+			return "listalldetails";
+		}
+		else{
+			model.addAttribute("errorcode",errorCodes.NO_EMPLOYEES_FOUND);
+			return "requestNotProcessed";
+		}
 	}
-	
-	// Function Name =  findEmployee()
+	// Function Name =  findEmployeeByName()
 	// find the details of one individual employee.
+	// returns errorCode if employee not present
 	//
-	@RequestMapping(value = { "findEmployee", "" }, method = GET)
-	public String findEmployee(	@RequestParam String firstname,
+	@RequestMapping(value = { "findEmployeeByName", "" }, method = GET)
+	public String findEmployeeByName(	@RequestParam String firstname,
 								@RequestParam String lastname,
 								Model model ) {
-		model.addAttribute("employee", employeeService.getEmployeeByName(firstname, lastname));
-		return "finddetails";
+		Employee employee = employeeService.getEmployeeByName(firstname, lastname);
+		
+		if ( employee != null ){
+			model.addAttribute("employee", employee);
+			return "finddetails";
+		}
+		else{
+			model.addAttribute("errorcode",errorCodes.EMPLOYEE_NAME_NOT_FOUND);
+			return "requestNotProcessed";
+		}
+	} 
+	// Function Name =  findEmployeeByID()
+	// find the details of one individual employee.
+	// returns errorCode if employee not present
+	//
+	@RequestMapping(value = { "findEmployeeByID", "" }, method = GET)
+	public String findEmployeeByID(	@RequestParam int  employeeID,
+								Model model ) {
+		Employee employee = employeeService.getEmployeeByID(employeeID);
+		
+		if ( employee != null ){
+			model.addAttribute("employee", employee);
+			return "finddetails";
+		}
+		else{
+			model.addAttribute("errorcode",errorCodes.EMPLOYEE_NAME_NOT_FOUND);
+			return "requestNotProcessed";
+		}
 	}
-	
 	// Function Name =  createNewEmployeeDetails()
 	// user requests to add new employee so we load the submit details page
 	//
@@ -71,18 +129,45 @@ public class EmployeeContoller {
 									@RequestParam String department, 
 									@RequestParam int salary,
 									Model model) {
+		Employee employee = employeeService.getEmployeeByName(firstname, lastname);
+		
+		if ( employee != null ){
+			model.addAttribute("errorcode",errorCodes.EMPLOYEE_ALERADY_EXISTS);
+			model.addAttribute("employee", employee);
+			return "requestNotProcessed";
+		}
 		model.addAttribute("employee", employeeService.addNewEmployee(firstname, lastname, jobtitle,department,salary));
 		return "details";
 	}
 	
-   
+	// Function Name =  createNewEmployee()
+	// Create a new Employee and then show the requested Details
+	//
 	@RequestMapping(value = "secure/donedetails", method = GET)
     public String done( Model model) {
 	return "redirect:/index.html";
     }
 	
+	// Function Name =  donedetails()
+	// You've seen the details now go back to the home page.
+	//
 	@RequestMapping(value = "donedetails", method = GET)
     public String donedetails( Model model) {
+	return "redirect:/index.html";
+    }
+	
+	// Function Name =  doneErrorCodes()
+	// There was an error in your request, we displayed it now we're sending you back to the home page
+	//
+	@RequestMapping(value = "errorCodes.html", method = GET)
+    public String doneErrorCodes( Model model) {
+	return "redirect:/index.html";
+    }
+	// Function Name =  doneSecureErrorCodes()
+	// There was an error in your request, we displayed it now we're sending you back to the home page
+	//
+	@RequestMapping(value = "secure/errorCodes.html", method = GET)
+    public String doneSecureErrorCodes( Model model) {
 	return "redirect:/index.html";
     }
 }

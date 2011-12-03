@@ -84,7 +84,16 @@ public class JDBCEmployeeDataBase implements EmployeeDataBase {
 		return jdbcTemplate.query("select employeeId, firstname, lastname, jobTitle, department,phoneExtn, salary from Employee",
 				new EmployeeRowMapper());
 	}
-	
+
+	/*
+	 * getAllEmployees
+	 * 
+	 * @see ie.cit.cloud.appdev.EmployeeDataBase#GetEmployeeById()
+	 */
+	public List<Employee> getAllEmployeesByDepartment(String department) {
+		return jdbcTemplate.query("select employeeId, firstname, lastname, jobTitle, department,phoneExtn, salary from Employee where department=?",
+				new EmployeeRowMapper(),department);
+	}
 	/*
 	 * getEmployeeById
 	 * 

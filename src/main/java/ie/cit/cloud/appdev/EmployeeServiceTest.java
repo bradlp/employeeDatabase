@@ -20,7 +20,7 @@
 	 *
 	 */
 
-public class EmployeeServiceImplTest {
+public class EmployeeServiceTest {
 	
 	private static final String PAUL = "Paul";
 	private static final String BRADLEY = "Bradley";

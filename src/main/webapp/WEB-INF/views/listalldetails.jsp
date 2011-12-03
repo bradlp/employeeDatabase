@@ -15,6 +15,17 @@
 	</head>
 	<body>
 		<h1>Employee Org Chart <img src="cloud.jpg"></h1>
+		<c:choose>
+      	<c:when test="${department=='ALL'}">
+      		You requested the list for all employees in the company.<br>
+      		<br>
+      	</c:when>
+		<c:otherwise>
+      		You requested the list for all employees in the <b>${department}</b> department.<br>
+      		<br>
+      	</c:otherwise>
+    	</c:choose>	
+		
 		<table border="2">
 				<tr>
 					<th>First Name</th>
