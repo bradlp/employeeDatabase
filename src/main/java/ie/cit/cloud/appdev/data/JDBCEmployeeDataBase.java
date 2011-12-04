@@ -4,6 +4,7 @@
 package ie.cit.cloud.appdev.data;
 
 
+import ie.cit.cloud.appdev.data.error.ErrorCodesMessages;
 import ie.cit.cloud.appdev.model.Employee;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,41 +31,56 @@ import org.springframework.jdbc.core.JdbcTemplate;
 public class JDBCEmployeeDataBase implements EmployeeDataBase {
 	JdbcTemplate jdbcTemplate;
 	private static final Logger logger = Logger.getLogger(JDBCEmployeeDataBase.class);
+	ErrorCodesMessages errorCode;
 
-	/**
-	 * 
-	 */
+	// JDBCEmployeeDataBase
+	// This class adds, removes and queries the database
+	// Atomic nature of transaction is handled at a layer above.
+	// 
 	@Autowired
 	public JDBCEmployeeDataBase(DataSource ds) {
 		jdbcTemplate = new JdbcTemplate(ds);
 	}
 
-	/*
-	 * addEmployee
-	 * 
-	 * @see
-	 * ie.cit.cloud.appdev.EmployeeDataBase#AddEmployee(ie.cit.cloud.appdev.
-	 * model.Employee)
-	 */
+	// Function Name =  addEmployee()
+	// Remove an employee from the database
+	// 
 	public int addEmployee(Employee employee) {
-		jdbcTemplate
-				.update("insert into Employee "
-						+ "(employeeId, firstname,lastname, jobTitle, department,phoneExtn, salary) values(?,?,?,?,?,?,?)",
-						employee.getEmployeeId(),employee.getLastName(), employee.getFirstName(),
-						employee.getJobTitle(), employee.getDepartment(),
-						employee.getPhoneExtn(), employee.getSalary());
-		return 0;
+		int returnCode = 0;
+		
+		try {
+			jdbcTemplate
+			.update("insert into Employee "
+					+ "(employeeId, firstname,lastname, jobTitle, department,phoneExtn, salary) values(?,?,?,?,?,?,?)",
+					employee.getEmployeeId(),employee.getLastName(), employee.getFirstName(),
+					employee.getJobTitle(), employee.getDepartment(),
+					employee.getPhoneExtn(), employee.getSalary());
+			returnCode = errorCode.UNABLE_TO_ADD_EMPLOYEE;
+		}
+		catch (DataAccessException ex) {
+			logger.error("No data returned for query on Employee Name.");
+			returnCode = errorCode.UNABLE_TO_ADD_EMPLOYEE;
+		}
+		return returnCode;
 	}
 
-	/*
-	 * deleteEmployee
-	 * 
-	 * @see ie.cit.cloud.appdev.EmployeeDataBase#DeleteEmployeeById(int)
-	 */
+	// Function Name =  deleteEmployee()
+	// Remove an employee from the database
+	// 
 	public int deleteEmployee(Employee employee) {
-		jdbcTemplate.update("delete from Employee where id=?",
-				employee.getEmployeeId());
-		return 0;
+
+		int returnCode =errorCode.SUCCESS;
+		
+		try {
+			jdbcTemplate.update("delete from Employee where id=?",
+					employee.getEmployeeId());
+			returnCode = errorCode.UNABLE_TO_DELETE_EMPLOYEE;
+		}
+		catch (DataAccessException ex) {
+			logger.error("No data returned for query on Employee Name.");
+			returnCode = errorCode.UNABLE_TO_DELETE_EMPLOYEE;
+		}
+		return returnCode;
 	}
 
 	// Function Name =  getAllEmployees()

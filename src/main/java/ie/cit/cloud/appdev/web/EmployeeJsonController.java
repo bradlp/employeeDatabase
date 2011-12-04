@@ -2,15 +2,23 @@ package ie.cit.cloud.appdev.web;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import ie.cit.cloud.appdev.EmployeeService;
+import ie.cit.cloud.appdev.data.JDBCEmployeeDataBase;
 import ie.cit.cloud.appdev.model.Employee;
+
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 /*
  * create: curl -i -H "Content-Type: application/json" -X POST -d '{"text":"Remember the Milk"}' http://localhost:8080/week_5_lab_res/api/todo
@@ -25,19 +33,43 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * curl -b cookies.txt 
  */
 @Controller
-@RequestMapping("api")
+@RequestMapping("employeeDataBase")
 public class EmployeeJsonController {
 
 	@Autowired
 	private EmployeeService employeeService;
-
+	private static final Logger logger = Logger.getLogger(EmployeeService.class);
+	
 	// Function Name =  getEmployeeList()
 	// Goes to the database and gets a list of all active employees
 	// Pay is rescricted so does not get that
-	//
-	@RequestMapping("list")
+	// listAll:   curl http://localhost:8080/week_4_lab_res/employeeDataBase/listAll
+	@RequestMapping("listAll")
     @ResponseBody
 	public List <Employee> getEmployeeList() {
-		return employeeService.getAllEmployees();
+		List<Employee> employees = null;
+		int numEmployeeCount = employeeService.getEmployeesCount(); 
+		if ( numEmployeeCount > 0 ){
+				employees = employeeService.getAllEmployees();
+		}
+		
+		return employees;
 	}
+    
+	// Function Name =  getEmployeeByID()
+	// Goes to the database and gets an employee based on the submitted id
+	// Pay is rescricted so does not get that, caller needs to NULL check
+	// detail: curl http://localhost:8080/week_4_lab_res/employeeDataBase//employee/{employeeID}
+	//
+	@RequestMapping(value = "/employee/{employeeID}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody
+    Employee getEmployeeByID(@PathVariable("employeeID") int employeeID) {
+		Employee employee=null;
+		if (employeeID >= 0  )
+			 employee = employeeService.getEmployeeByID(employeeID);
+		// Dont want salary exposed via json interface
+		employee.setSalary(0);
+		return employee;
+	}	
 }
