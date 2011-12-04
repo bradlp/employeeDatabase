@@ -28,6 +28,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
  */
 @Repository
 public class JDBCEmployeeDataBase implements EmployeeDataBase {
+	
 	JdbcTemplate jdbcTemplate;
 	private static final Logger logger = Logger.getLogger(JDBCEmployeeDataBase.class);
 	ErrorCodesMessages errorCode;
@@ -42,7 +43,7 @@ public class JDBCEmployeeDataBase implements EmployeeDataBase {
 	}
 
 	// Function Name =  addEmployee()
-	// Remove an employee from the database
+	// Add an employee from the database
 	// 
 	public int addEmployee(Employee employee) {
 		int returnCode = 0;

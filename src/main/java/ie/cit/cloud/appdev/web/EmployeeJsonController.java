@@ -41,7 +41,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class EmployeeJsonController {
 
 	@Autowired
-	private EmployeeService employeeService;
+	EmployeeService employeeService;
 	private static final Logger logger = Logger.getLogger(EmployeeService.class);
 	
 	// Function Name =  getEmployeeList()
