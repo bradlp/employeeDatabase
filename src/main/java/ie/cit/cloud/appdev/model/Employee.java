@@ -15,8 +15,8 @@ public class Employee {
 
 	private int phoneExtn;
 	private int salary;
+	private PerformanceAppraisal rating;	//Not yet used
 
-	
 	
 	public Employee(int employeeId,String firstName, String lastName, 
 					String jobTitle, String department,

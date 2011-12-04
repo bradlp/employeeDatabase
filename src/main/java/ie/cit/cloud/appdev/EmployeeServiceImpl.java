@@ -50,6 +50,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	
 	// Function Name =  addNewEmployee()
 	//
+	@Transactional
 	public Employee addNewEmployee(String firstname, String lastname, String jobtitle, 
 								String department, int salary) {
 		int nextAvailibleID = this.getNextAvailibleEmployeeId();

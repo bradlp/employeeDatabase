@@ -59,7 +59,7 @@ body {
 
 								<INPUT TYPE=RADIO NAME=department VALUE="ALL" CHECKED>ALL<BR>
 								<INPUT TYPE=RADIO NAME=department VALUE="Engineering">Engineering Department<BR>
-								<INPUT TYPE=RADIO NAME=department VALUE="Sofware">Software Department<BR>
+								<INPUT TYPE=RADIO NAME=department VALUE="Software">Software Department<BR>
 								<INPUT TYPE=RADIO NAME=department VALUE="Test">Test Department<BR>
 								<INPUT TYPE=RADIO NAME=department VALUE="Finance">Finance Department<BR>
 								<INPUT TYPE=RADIO NAME=department VALUE="HR">HR Department<BR>

@@ -107,8 +107,6 @@ public class EmployeeJsonController {
     public void emptyResult() {
 	// no code needed
     }	
-	
-	
-	
+
 	
 }
