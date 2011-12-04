@@ -3,17 +3,25 @@ package ie.cit.cloud.appdev.web;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+import java.util.Collection;
 import java.util.List;
 
 import ie.cit.cloud.appdev.EmployeeService;
+import ie.cit.cloud.appdev.SecurityCheck;
 import ie.cit.cloud.appdev.model.Employee;
 import ie.cit.cloud.appdev.data.error.ErrorCodesMessages;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.support.RequestContext;
 
 
 /**
@@ -98,6 +106,7 @@ public class EmployeeContoller {
 		
 		if ( employee != null ){
 			model.addAttribute("employee", employee);
+			model.addAttribute("secure", false);
 			return "finddetails";
 		}
 		else{
@@ -105,6 +114,35 @@ public class EmployeeContoller {
 			return "requestNotProcessed";
 		}
 	} 
+	
+	// Function Name =  findEmployeeSalaryByName()
+	// find the details of one individual employee.
+	// returns errorCode if employee not present
+	//
+	@RequestMapping(value = { "secure/findEmployeeSalary.html", "" }, method = GET)
+	public String findEmployeeSalaryByName(	@RequestParam String firstname,
+								@RequestParam String lastname,
+								Model model ) {
+		
+		boolean secureUserWithRole = SecurityCheck.checkIsThisAdmin(); 
+		if (firstname ==null || lastname ==null){
+			model.addAttribute("errorcode",errorCodes.INVALID_DATA_SUBMITTED);
+			return "requestNotProcessed";
+		}	
+		Employee employee = employeeService.getEmployeeByName(firstname, lastname);
+		
+		if ( employee != null ){
+			model.addAttribute("employee", employee);
+			model.addAttribute("secure", true);
+			return "finddetails";
+		}
+		else{
+			model.addAttribute("errorcode",errorCodes.EMPLOYEE_NAME_NOT_FOUND);
+			return "requestNotProcessed";
+		}
+	} 
+	
+	
 	// Function Name =  findEmployeeByID()
 	// find the details of one individual employee.
 	// returns errorCode if employee not present
@@ -120,6 +158,7 @@ public class EmployeeContoller {
 		
 		if ( employee != null ){
 			model.addAttribute("employee", employee);
+			model.addAttribute("secure", false);
 			return "finddetails";
 		}
 		else{
@@ -186,4 +225,6 @@ public class EmployeeContoller {
     public String doneSecureErrorCodes( Model model) {
 	return "redirect:/index.html";
     }
+
+
 }

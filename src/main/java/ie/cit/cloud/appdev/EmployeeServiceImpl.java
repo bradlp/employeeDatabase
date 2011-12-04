@@ -8,6 +8,7 @@ import ie.cit.cloud.appdev.model.Employee;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.h2.jdbc.JdbcBlob;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -21,22 +22,23 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class EmployeeServiceImpl implements EmployeeService {
 
-	JDBCEmployeeDataBase repository;
+	EmployeeDataBase repository;
 	TeleCommsDeptment telecommsDept;
 	
 	// Function Name =  EmployeeServiceImpl()
 	//
 	@Autowired
 	public EmployeeServiceImpl(EmployeeDataBase employeDataBase) {
-		this.repository = (JDBCEmployeeDataBase) employeDataBase;
+		this.repository =  employeDataBase;
 		telecommsDept = new TeleCommsDeptment();
 	}
 
 	// Function Name =  getAllEmployees()
 	//
 	@Transactional(readOnly = true)
-	public List<Employee> getAllEmployees() {
-		return ( this.repository.getAllEmployees());
+	public List<Employee>  getAllEmployees() {
+		List<Employee> employees =(List<Employee>) this.repository.getAllEmployees();
+		return ( employees);
 	}
 	
 	// Function Name =  getEmployeesCount()

@@ -24,6 +24,7 @@
 	<!-- Here is where we set the datasource for the JDBC database
 		 Switching between 2 types   (1)  inMemory H2
 		 							 (2)  CloudFoubdry Based	 -->
+	
 	<jdbc:embedded-database id="dataSource" type="H2"/> 
 	<!-- <cloud:data-source id="dataSource" /> -->
 	
@@ -32,6 +33,7 @@
 	</jdbc:initialize-database>
 	
 	<aop:aspectj-autoproxy />
+	
 	<tx:annotation-driven />
 
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

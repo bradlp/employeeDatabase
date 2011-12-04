@@ -45,8 +45,9 @@
 			<version>2.5</version>
 			<scope>provided</scope>
 		</dependency>
+		
 		<!-- Spring Dependencies -->
-				<dependency>
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-tx</artifactId>
 			<version>${spring.version}</version>

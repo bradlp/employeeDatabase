@@ -88,17 +88,30 @@ body {
 					<tr>
 						<td style="background-color: #CCCCCC;" colspan="2">
 							<h2 style="color:red"> Rescricted Access </h2>
-							Manager Only in this area.
-							Login will be required
-							<form name="input"  method="get">
-								Username: <input type="text" name="user" /><br>
-								Password: <input type="text" type="hidden" name="user" /><br>
-								<input type="submit" value="Login" />
-							</form>
+							Manager and HR Administrators Only in this area.
+							Secure Login is Required will be required
+
 							<form action="secure/addnew.html" method="get">
 									Employee Details:<br> New Employee Page: 
 									<input type="submit" value="Add New Employee" />
 							</form>
+							<br>
+							<hr>
+							<form action="secure/findEmployeeSalary.html" method="get">
+									<b>Find Employee Salary:</b><br> 
+									First Name: <input type="text" name="firstname" /><br>
+									Last  Name: <input type="text" name="lastname" /><br>
+									<input type="submit" value="Find Employee Salary">
+							</form>
+							<br>
+							<hr>
+							<form action="secure/findEmployeePerfomance.html" method="get">
+									<b>Find Employee Salary:</b><br> 
+									First Name: <input type="text" name="firstname" /><br>
+									Last  Name: <input type="text" name="lastname" /><br>
+									<input type="submit" value="Find Employee Rating">
+							</form>
+							
 						</td>
 					</tr>
 				</table></td>

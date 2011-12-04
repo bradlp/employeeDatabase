@@ -1,6 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
 <html>
 	<head>
 		<title>New Employee Input</title>
@@ -40,12 +42,22 @@
 		<td><b>Phone Extn</b></td>
 		<td>${employee.phoneExtn}</td>
 	</tr>
+	<tr>
+		<td><b>Salary</b>
+		<c:choose>
+      	<c:when test="${secure==true}">
+      		<td>${employee.salary}.</td>
+      	</c:when>
+      	<c:otherwise>
+      		<td><font color="red"> <b>Not Availible</b></font></td>
+      	</c:otherwise>
+		</c:choose>
+	</tr>
 </table><p>
 	
 	</p><form action="donedetails.html" method="get">
 		<input type="submit" value="Back to Home Page">
 		</form>
-								
-	
+		
 	</body>
 </html>
