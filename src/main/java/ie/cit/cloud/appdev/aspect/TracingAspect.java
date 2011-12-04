@@ -18,7 +18,7 @@ public class TracingAspect {
     // Function Name = trace
     // Any classes that is annotated with repository in the pacakage ie.cit..*
     // Taking any method
-    @Before("execution(* (@org.springframework.stereotype.Repository ie.cit..*).*(..))")
+    @Before("execution(* (@org.springframework.stereotype.Repository ie.cit..*).*(..)) && target(repo)")
     public void traceRepositoryCalls(JoinPoint jp, Object repo) {
     	String clazz = repo.getClass().getName();
     	String method = jp.getSignature().getName();
