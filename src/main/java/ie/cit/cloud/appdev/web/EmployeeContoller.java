@@ -33,7 +33,7 @@ import org.springframework.web.servlet.support.RequestContext;
 public class EmployeeContoller {
 	
 	@Autowired
-	EmployeeService employeeService;
+	public	EmployeeService employeeService;
 	private ErrorCodesMessages errorCodes;
 
 	// Function Name =  index()
